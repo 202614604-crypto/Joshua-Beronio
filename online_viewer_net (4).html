@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gordon College - Student Satisfaction Survey</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#eef2ff;display:flex;justify-content:center;padding:12px}
+.box{background:#fff;width:100%;max-width:850px;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.15);overflow:hidden;border-top:10px solid #0a4a2a}
+.header{background:linear-gradient(135deg,#0a4a2a,#15803d);color:#fff;padding:26px;text-align:center}
+.header h1{font-size:23px}
+.header p{font-size:12px;opacity:.95;margin-top:5px;line-height:1.5}
+.badge{display:inline-block;background:#ffcc00;color:#0a4a2a;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900;margin-top:8px}
+.top{padding:12px 20px;background:#f0fdf4;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #bbf7d0}
+.top input,.top select{flex:1;padding:10px;border:1px solid #86efac;border-radius:8px;min-width:130px;font-size:13px}
+.form{padding:20px}
+.q{margin-bottom:16px;padding:14px;border-radius:10px;background:#f8fffa;border:1px solid #d1fae5}
+.q h3{font-size:13.5px;margin-bottom:8px;color:#111}
+.q h3 span{color:#dc2626}
+.q label{display:block;padding:8px 10px;margin:4px 0;background:#fff;border:1px solid #e5e7eb;border-radius:7px;cursor:pointer;font-size:13px}
+.q label:hover{background:#dcfce7;border-color:#15803d}
+.q input[type="text"], .q textarea, .q select{width:100%;padding:10px;border:1.5px solid #bbf7d0;border-radius:8px;margin-top:5px;font-size:13px;outline:none}
+.range{width:100%;accent-color:#0a4a2a}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:#666;margin-top:4px}
+.btn{width:100%;padding:14px;background:#0a4a2a;color:#fff;border:none;border-radius:12px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+.btn:hover{background:#083a22}
+#result{display:none;padding:25px}
+.stat{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.stat div{padding:12px;background:#f0fdf4;border-radius:10px;text-align:center;border:1px solid #bbf7d0}
+.stat b{font-size:18px;color:#0a4a2a;display:block}
+.print{border:2px dashed #0a4a2a;padding:14px;border-radius:10px;background:#fcfffe;margin-top:12px;font-size:12px;white-space:pre-wrap;line-height:1.6}
+@media(max-width:600px){.stat{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="header">
+    <h1>🏫 GORDON COLLEGE SURVEY</h1>
+    <p><b>Research Title:</b> Student Satisfaction and Perception on Services, Facilities, and Academic Programs of Gordon College - Olongapo City</p>
+    <div class="badge">For Academic Purpose | CCS / CHTM / CEAS / CBA Web Project</div>
+    <p style="margin-top:8px;font-size:11px;opacity:.8">Confidential - 3 mins only - Your feedback matters!</p>
+  </div>
+
+  <div class="top">
+    <input id="name" placeholder="Name (Optional)">
+    <select id="course">
+      <option value="">Course / College</option>
+      <option>BSHM - CHTM</option><option>BSTM - CHTM</option><option>BEED - CEAS</option><option>BECED - CEAS</option>
+      <option>BSED - CEAS</option><option>BCAED - CEAS</option><option>BPEd - CEAS</option><option>BA Comm - CEAS</option>
+      <option>BSIT - CCS</option><option>BSCS - CCS</option><option>BSBA - CBA</option><option>BSA - CBA</option><option>Other</option>
+    </select>
+    <select id="year">
+      <option value="">Year Level</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+    </select>
+    <select id="gender">
+      <option value="">Gender</option><option>Male</option><option>Female</option><option>LGBTQ+</option>
+    </select>
+  </div>
+
+  <div id="formArea" class="form">
+    
+    <div class="q">
+      <h3>1. How satisfied are you with the quality of teaching in Gordon College? <span>*</span></h3>
+      <label><input type="radio" name="q1" value="Very Satisfied"> Very Satisfied - Magaling magturo mga prof</label>
+      <label><input type="radio" name="q1" value="Satisfied"> Satisfied</label>
+      <label><input type="radio" name="q1" value="Neutral"> Neutral</label>
+      <label><input type="radio" name="q1" value="Dissatisfied"> Dissatisfied</label>
+    </div>
+
+    <div class="q">
+      <h3>2. Which facilities have you used? (Check all that apply) <span>*</span></h3>
+      <label><input type="checkbox" value="Library"> Library</label>
+      <label><input type="checkbox" value="Computer Lab"> Computer Lab / CCS Lab</label>
+      <label><input type="checkbox" value="Canteen"> Canteen</label>
+      <label><input type="checkbox" value="Gym / Covered Court"> Gym / Covered Court</label>
+      <label><input type="checkbox" value="Clinic"> Clinic</label>
+      <label><input type="checkbox" value="Registrar / Admin"> Registrar / Admin Offices</label>
+    </div>
+
+    <div class="q">
+      <h3>3. Rate the cleanliness and maintenance of Gordon College (1-10) <span>*</span></h3>
+      <input type="range" min="1" max="10" value="5" class="range" id="q3" oninput="document.getElementById('q3v').innerText=this.value">
+      <div class="scale"><span>1 - Poor</span><span id="q3v" style="font-weight:bold;color:#0a4a2a">5</span><span>10 - Excellent</span></div>
+    </div>
+
+    <div class="q">
+      <h3>4. What is the biggest strength of Gordon College? <span>*</span></h3>
+      <select id="q4">
+        <option value="">-- Select one --</option>
+        <option>Affordable / Free Education</option>
+        <option>Quality Teachers / Professors</option>
+        <option>Good Facilities</option>
+        <option>Supportive Community / GC Culture</option>
+        <option>Location (Olongapo City)</option>
+        <option>Scholarships / Programs</option>
+      </select>
+    </div>
+
+    <div class="q">
+      <h3>5. What needs improvement? <span>*</span></h3>
+      <label><input type="radio" name="q5" value="Facilities"> Facilities (CR, classrooms, labs)</label>
+      <label><input type="radio" name="q5" value="Internet"> Internet / WiFi</label>
+      <label><input type="radio" name="q5" value="Canteen"> Canteen / Food</label>
+      <label><input type="radio" name="q5" value="Parking"> Parking / Space</label>
+      <label><input type="radio" name="q5" value="Activities"> Student Activities / Events</label>
+      <label><input type="radio" name="q5" value="None"> None - All good!</label>
+    </div>
+
+    <div class="q">
+      <h3>6. How proud are you to be a GCian? (1-10)</h3>
+      <input type="range" min="1" max="10" value="8" class="range" id="q6" oninput="document.getElementById('q6v').innerText=this.value">
+      <div class="scale"><span>1 - Not proud</span><span id="q6v" style="font-weight:bold;color:#0a4a2a">8</span><span>10 - Very Proud!</span></div>
+    </div>
+
+    <div class="q">
+      <h3>7. Would you recommend Gordon College to incoming students?</h3>
+      <label><input type="radio" name="q7" value="Yes, definitely"> Yes, definitely!</label>
+      <label><input type="radio" name="q7" value="Yes, maybe"> Yes, maybe</label>
+      <label><input type="radio" name="q7" value="No"> No</label>
+    </div>
+
+    <div class="q">
+      <h3>8. What is your favorite experience in Gordon College?</h3>
+      <textarea id="q8" rows="3" placeholder="Ex: Intramurals, acquaintance party, OJT, defense, etc."></textarea>
+    </div>
+
+    <div class="q">
+      <h3>9. Suggestions to make Gordon College better?</h3>
+      <input type="text" id="q9" placeholder="Type your suggestion...">
+    </div>
+
+    <div class="q">
+      <h3>10. Overall satisfaction with Gordon College?</h3>
+      <label><input type="radio" name="q10" value="5 - Excellent"> ⭐⭐⭐⭐⭐ Excellent</label>
+      <label><input type="radio" name="q10" value="4 - Very Good"> ⭐⭐⭐⭐ Very Good</label>
+      <label><input type="radio" name="q10" value="3 - Good"> ⭐⭐⭐ Good</label>
+      <label><input type="radio" name="q10" value="2 - Fair"> ⭐⭐ Fair</label>
+      <label><input type="radio" name="q10" value="1 - Poor"> ⭐ Poor</label>
+    </div>
+
+    <button class="btn" onclick="submitGC()">SUBMIT SURVEY</button>
+    <p style="font-size:11px;color:#999;text-align:center;margin-top:8px">Academic Web Project Only - Data will be kept confidential</p>
+  </div>
+
+  <div id="result">
+    <h2 style="text-align:center;color:#0a4a2a">✅ Survey Submitted! Thank you, GCian!</h2>
+    <p style="text-align:center;font-size:13px;margin-top:6px">Pang screenshot for documentation / Chapter 4</p>
+
+    <div class="stat">
+      <div><b id="sCourse">-</b>Course</div>
+      <div><b id="sYear">-</b>Year</div>
+      <div><b id="sClean">5</b>Cleanliness</div>
+      <div><b id="sProud">8</b>Pride</div>
+    </div>
+
+    <div class="print" id="printData"></div>
+
+    <button class="btn" onclick="location.reload()">New Response</button>
+    <button class="btn" style="background:#16a34a;margin-top:8px" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+</div>
+
+<script>
+function submitGC(){
+  let name=document.getElementById('name').value || 'Anonymous';
+  let course=document.getElementById('course').value || 'N/A';
+  let year=document.getElementById('year').value || 'N/A';
+  let q1=document.querySelector('input[name="q1"]:checked');
+  let q4=document.getElementById('q4').value;
+  let q5=document.querySelector('input[name="q5"]:checked');
+  let q7=document.querySelector('input[name="q7"]:checked');
+  let q10=document.querySelector('input[name="q10"]:checked');
+  let q3=document.getElementById('q3').value;
+  let q6=document.getElementById('q6').value;
+  let q8=document.getElementById('q8').value;
+  let q9=document.getElementById('q9').value;
+
+  if(!q1 || !q4 || !q5 || !q7 || !q10){
+    alert('Please complete required questions with *'); return;
+  }
+
+  let fac=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(c=>c.value).join(', ') || 'None';
+
+  document.getElementById('formArea').style.display='none';
+  document.querySelector('.top').style.display='none';
+  document.getElementById('result').style.display='block';
+
+  document.getElementById('sCourse').innerText=course.split('-')[0];
+  document.getElementById('sYear').innerText=year;
+  document.getElementById('sClean').innerText=q3;
+  document.getElementById('sProud').innerText=q6;
+
+  let out=`GORDON COLLEGE - STUDENT SURVEY RESPONSE
+Date: ${new Date().toLocaleString()}
+Respondent: ${name} | Course: ${course} | Year: ${year}
+
+1. Teaching Satisfaction: ${q1.value}
+2. Facilities Used: ${fac}
+3. Cleanliness Rating: ${q3}/10
+4. Biggest Strength: ${q4}
+5. Needs Improvement: ${q5.value}
+6. Proud to be GCian: ${q6}/10
+7. Recommend GC? ${q7.value}
+8. Favorite Experience: ${q8 || 'No answer'}
+9. Suggestion: ${q9 || 'No answer'}
+10. Overall Satisfaction: ${q10.value}
+
+-- End --
+Gordon College - Olongapo City | Web Project Survey`;
+
+  document.getElementById('printData').innerText=out;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
